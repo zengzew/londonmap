@@ -350,6 +350,7 @@ export default {
       geometry.rotateZ(Math.PI);
 
       let water = new Water(geometry, this.MAT_WATER);
+      water.position.y = -0.1;
       this.iR_Water.add(water);
     },
 
@@ -372,7 +373,7 @@ export default {
         elp = this.GPSRelativePosition([elp[0], elp[1]], this.center);
 
         // Draw Line
-        points.push(new THREE.Vector3(elp[0], 0.5, elp[1]));
+        points.push(new THREE.Vector3(elp[0], 1, elp[1]));
       }
 
       let geometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -385,7 +386,7 @@ export default {
       line.computeLineDistances();
 
       this.iR.add(line);
-      line.position.set(line.position.x, 0.5, line.position.z);
+      line.position.set(line.position.x, 1, line.position.z);
 
       if (this.FLAG_ROAD_ANI) {
         // Length of the line
@@ -406,7 +407,7 @@ export default {
         new THREE.LineDashedMaterial({ color: 0x00ffff })
       );
       animatedLine.material.transparent = true;
-      animatedLine.position.y = 0.5;
+      animatedLine.position.y = 1;
       animatedLine.material.dashSize = 0;
       animatedLine.material.gapSize = 1000;
 
@@ -470,7 +471,7 @@ export default {
         if (helper) {
           helper.name = info["name"] ? info["name"] : "Building";
           helper.info = info;
-          //this.iR.add(helper)
+          //this.iR.add(helper);
           this.collider_building.push(helper);
         }
       }
@@ -525,6 +526,7 @@ export default {
         return false;
       }
     },
+
     genGeometry(shape, settings) {
       let geometry = new THREE.ExtrudeGeometry(shape, settings);
       geometry.computeBoundingBox();
